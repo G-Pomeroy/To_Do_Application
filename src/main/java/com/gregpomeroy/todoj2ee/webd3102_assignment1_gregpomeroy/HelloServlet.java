@@ -1,5 +1,6 @@
 package com.gregpomeroy.todoj2ee.webd3102_assignment1_gregpomeroy;
 
+import com.gregpomeroy.todoj2ee.webd3102_assignment1_gregpomeroy.database.DBConnect;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,25 +10,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.io.*;
 
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "hello-servlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
     private String message;
 
     public void init() throws ServletException {
 
-        // Initialize database connection
         try {
             Connection connection = DBConnect.getConnection();
             System.out.println("Connected to the database");
 
-            // You can store the connection object in a servlet context attribute
             getServletContext().setAttribute("dbConnection", connection);
         } catch (SQLException e) {
             throw new ServletException("Error connecting to the database", e);
