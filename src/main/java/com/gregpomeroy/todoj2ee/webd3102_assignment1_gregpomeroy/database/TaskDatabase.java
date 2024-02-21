@@ -73,7 +73,6 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
             }
         } catch (SQLException ex) {
             System.out.println("Error retrieving task: " + ex.getMessage());
-            ex.printStackTrace();
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -81,7 +80,6 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
                 System.out.println("Error closing resources: " + ex.getMessage());
-                ex.printStackTrace();
             }
         }
         return task;
@@ -115,7 +113,6 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
             }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
-            ex.printStackTrace();
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -123,14 +120,10 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
                 System.out.println("Error closing resources: " + ex.getMessage());
-                ex.printStackTrace();
             }
         }
         return tasks;
     }
-
-
-
 
     @Override
     public boolean updateTask(Task task) {
@@ -142,22 +135,22 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
         try {
             conn = getConnection();
             preparedStatement = conn.prepareStatement(SQL_UPDATE);
+
             preparedStatement.setString(1, task.getTaskName());
             preparedStatement.setDate(2, task.getDueDate());
             preparedStatement.setString(3, task.getStatus().toString());
             preparedStatement.setInt(4, task.getId());
-            rowUpdated = preparedStatement.executeUpdate() > 0;
 
+            rowUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex){
             System.out.println("Error updating task: " + ex.getMessage());
-            ex.printStackTrace();
+            return false;
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
                 System.out.println("Error closing resources: " + ex.getMessage());
-                ex.printStackTrace();
             }
         }
         return rowUpdated;
@@ -176,14 +169,12 @@ private static final String SQL_DELETE = "DELETE FROM tasks WHERE id = ?";
 
         } catch (SQLException ex) {
             System.out.println("Error deleting task: " + ex.getMessage());
-            ex.printStackTrace();
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
                 System.out.println("Error closing resources: " + ex.getMessage());
-                ex.printStackTrace();
             }
         }
     }
