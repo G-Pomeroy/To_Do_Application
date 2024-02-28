@@ -27,8 +27,8 @@
         <th>Task Name</th>
         <th>Due Date</th>
         <th>Status</th>
-        <th>Modify</th>
         <th>Delete</th>
+        <th>Modify</th>
     </tr>
     </thead>
     <tbody>
